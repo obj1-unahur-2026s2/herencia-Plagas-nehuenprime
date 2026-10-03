@@ -1,2 +1,42 @@
 import plagas.*
 
+test "hogar recibe daño de una cucaracha" {
+    const cucaracha = new Cucaracha(poblacion = 10, transmiteEnfermedades = false)
+    const hogar = new Hogar(nivelMugre = 20, confort = 100)
+
+    cucaracha.atacar(hogar)
+
+    assert.equals(25.5, hogar.nivelMugre())
+}
+
+test "mascota pierde salud si la plaga transmite" {
+    const pulga = new Pulga(poblacion = 10, transmiteEnfermedades = false)
+    const mascota = new Mascota(nivelSalud = 300)
+
+    pulga.atacar(mascota)
+
+    assert.equals(278, mascota.nivelSalud())
+}
+
+test "cucaracha aumenta poblacion y peso al atacar" {
+    const cucaracha = new Cucaracha(poblacion = 10, transmiteEnfermedades = false)
+
+    cucaracha.efectoPlaga()
+
+    assert.equals(11, cucaracha.poblacion())
+    assert.equals(10, cucaracha.peso())
+}
+
+test "garrapata aumenta poblacion un 20 por ciento" {
+    const garrapata = new Garrapata(poblacion = 10,  transmiteEnfermedades = false)
+
+    garrapata.efectoPlaga()
+
+    assert.equals(12, garrapata.poblacion())
+}
+
+test "mosquito no transmite si poblacion no es multiplo de 3" {
+    const mosquito = new Mosquito(poblacion = 10, transmiteEnfermedades = false)
+
+    assert.equals(false, mosquito.transmiteEnfermedades())
+}
